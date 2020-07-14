@@ -4,8 +4,15 @@ import os
 from discord.ext import commands, tasks
 from itertools import cycle
 
+# Open token file
+with open("token.txt", "r") as file:
+    token = file.read()    
+
 client = commands.Bot(command_prefix = ".")
 # status = cycle(['', '', '', ''])
+
+async def is_owner(ctx):
+    return ctx.author.id == 451974524053749780 # DaijobuDes#0870
 
 @client.command()
 @commands.check(is_owner)
@@ -26,9 +33,6 @@ async def reload(ctx, extension):
     client.load_extension(f'plugins.{extension}')
     print(f'{extension} reloaded')
 
-async def is_owner(ctx):
-    return ctx.author.id == 451974524053749780
-
 
 for filename in os.listdir('./plugins'):
     if filename.endswith('.py'):
@@ -44,7 +48,4 @@ for filename in os.listdir('./plugins'):
 #     elif isinstance(error, commands.CommandNotFound):
 #         print("No command exists")
 
-
-
-
-client.run('TOKEN')
+client.run(token)
