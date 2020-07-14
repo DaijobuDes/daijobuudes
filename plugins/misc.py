@@ -9,8 +9,8 @@ class Misc(commands.Cog):
     @commands.command()
     async def ping(self, ctx):
         print(f'Pinging at `{round(self.client.latency * 1000)} ms`')
-        await ctx.send(f'Pinging at `{round(self.client.latency * 1000)} ms`')
-
+        message = await ctx.send(f'Pinging...')
+        await message.edit(content = f'Responded for `{round(self.client.latency * 1000)} ms`')
 
 
 def setup(client):

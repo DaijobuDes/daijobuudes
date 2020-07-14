@@ -8,20 +8,26 @@ client = commands.Bot(command_prefix = ".")
 # status = cycle(['', '', '', ''])
 
 @client.command()
+@commands.check(is_owner)
 async def load(ctx, extension):
     client.load_extension(f'plugins.{extension}')
     print(f'{extension} loaded')
 
 @client.command()
+@commands.check(is_owner)
 async def unload(ctx, extension):
     client.unload_extension(f'plugins.{extension}')
     print(f'{extension} unloaded')
 
 @client.command()
+@commands.check(is_owner)
 async def reload(ctx, extension):
     client.unload_extension(f'plugins.{extension}')
     client.load_extension(f'plugins.{extension}')
     print(f'{extension} reloaded')
+
+async def is_owner(ctx):
+    return ctx.author.id == 451974524053749780
 
 
 for filename in os.listdir('./plugins'):
