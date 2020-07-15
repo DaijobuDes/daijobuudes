@@ -1,15 +1,23 @@
 # daijobuudes
 
-A simple discord python bot
+A simple discord python bot.
+Plugins are easy to write, loadable, unloadable and reloadable for realtime plugin testing.
 
 
 ## Running the bot
-Simply open a terminal in linux or command prompt in Windows then type `python3 main.py`. Also works in Android phones using Termux with dependencies installed.
+Make sure you have python 3.5 or later to run this bot.
+
+To install dependencies on python, type `pip3 install discord` or `python3 -m pip install discord`
+
+To run, simply open a terminal in linux or command prompt in Windows then type `python3 main.py`. Also works in Android phones using Termux with dependencies installed.
 
 
 
 ## Bot Token
 Simply get it from here https://discord.com/developers/applications/
+
+Create a `token.txt` inside the directory with your discord bot token.
+This is to separate the bot token for privacy purposes.
 
 
 
