@@ -9,7 +9,7 @@ class Games(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(aliases = ['8ball', 'eball'])
     async def eightball(self, ctx, *, question):
         responses = ['It is possible.',
                     'Yes!',
@@ -52,8 +52,8 @@ class Games(commands.Cog):
                     'Can\'t answer that question.',
                     'Just ask others.',
                     'Hmmmmmmmmm.....']
-
         await ctx.send(f'{random.choice(responses)}')
+        print(f'Eightball triggered. Question: `{question}`')
 
 def setup(client):
     client.add_cog(Games(client))
