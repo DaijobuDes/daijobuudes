@@ -9,8 +9,8 @@
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
 #
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -21,11 +21,11 @@
 # SOFTWARE.
 
 
-import discord
 import os
+import time
+import datetime
 
-from discord.ext import commands, tasks
-from itertools import cycle
+from discord.ext import commands
 
 # LOG START
 import logging
@@ -38,23 +38,26 @@ logger.addHandler(handler)
 
 # LOG END
 
+start_time = time.time()
+
 # Open token file
 with open("token.txt", "r") as file:
-    token = file.read()    
+    token = file.read()
 
-client = commands.Bot(command_prefix = ".")
-# status = cycle(['', '', '', ''])
+client = commands.Bot(command_prefix=".")
+
 
 # Change ctx.author.id to your own discord ID if you plan to self host
 async def is_owner(ctx):
-    return ctx.author.id == 451974524053749780 # DaijobuDes#0870
+    return ctx.author.id == 451974524053749780  # DaijobuDes#0870
 
-# Load plugins
+
 @client.command()
 @commands.check(is_owner)
 async def load(ctx, extension):
     client.load_extension(f'plugins.{extension}')
     print(f'{extension} loaded')
+
 
 # Unload plugins
 @client.command()
@@ -62,6 +65,7 @@ async def load(ctx, extension):
 async def unload(ctx, extension):
     client.unload_extension(f'plugins.{extension}')
     print(f'{extension} unloaded')
+
 
 # Reload plugins
 # Useful for realtime plugin testing
@@ -78,13 +82,13 @@ for filename in os.listdir('./plugins'):
         client.load_extension(f'plugins.{filename[:-3]}')
         print(f'{filename} loaded')
 
-##### Error handling 
-# @client.event
-# async def on_command_error(ctx, error):
-#     if isinstance(error, commands.MissingRequiredArgument):
-#         await ctx.send('Missing required argument.')
-#         print("Command missing argument")
-#     elif isinstance(error, commands.CommandNotFound):
-#         print("No command exists")
+
+@client.command()
+async def uptime(ctx):
+    current_time = time.time()
+    difference = int(round(current_time-start_time))
+    text_time = str(datetime.timedelta(seconds=difference))
+    await ctx.send(f'`Uptime: {text_time}`')
+
 
 client.run(token)
