@@ -10,6 +10,9 @@ Also works in Android phones using Termux with dependencies installed.
 ## Bot Token
 Simply get it from here https://discord.com/developers/applications/
 
+Create a `token.txt` inside the directory with your discord bot token.
+This is to separate the bot token for privacy purposes.
+
 
 ### TO-DO
 - [ ] Complete rewrite of my IRC bot used in messenger to discord bot (probably)
