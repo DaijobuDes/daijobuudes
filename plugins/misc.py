@@ -12,6 +12,10 @@ class Misc(commands.Cog):
         message = await ctx.send('Pinging...')
         await message.edit(content=f'Responded for `{round(self.client.latency*1000)} ms`')
 
+    @commands.command()
+    async def echo(self, ctx, *, args):
+        await ctx.send(args)
+
 
 def setup(client):
     client.add_cog(Misc(client))
