@@ -1,16 +1,14 @@
 # daijobuudes
-
 A simple discord python bot
 
 
 ## Running the bot
-Simply open a terminal in linux or command prompt in Windows then type `python3 main.py`. Also works in Android phones using Termux with dependencies installed.
-
+Simply open a terminal in linux or command prompt in Windows then type `python3 main.py`.
+Also works in Android phones using Termux with dependencies installed.
 
 
 ## Bot Token
 Simply get it from here https://discord.com/developers/applications/
-
 
 
 ### TO-DO
@@ -23,4 +21,3 @@ Simply get it from here https://discord.com/developers/applications/
 - [ ] Math
 - [ ] Hashes
 - [ ] And others
-
