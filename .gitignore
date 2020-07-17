@@ -1,5 +1,15 @@
-.pyc
+# Python cache files
+*.pyc
 __pycache__
+
+# Discord token file
 token.txt
+
+# Temporary files
 temp
+
+# Discord logs
 discord.log
+
+# youtube-dl files
+*.opus
