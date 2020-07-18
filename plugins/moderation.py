@@ -9,9 +9,9 @@ class Moderation(commands.Cog):
 
     # Purge messages
     @commands.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_channels=True)
     async def purge(self, ctx, amount=5):
-        await ctx.channel.purge(limit=amount)
+        await ctx.channel.purge(limit=amount+1)
         print(f'Purged {amount} messages')
 
     # Kick a member
