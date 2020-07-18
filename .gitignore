@@ -13,3 +13,4 @@ discord.log
 
 # youtube-dl files
 *.opus
+queue
