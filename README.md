@@ -23,4 +23,5 @@ This is to separate the bot token for privacy purposes.
 - [ ] IRC relay to Discord either through webhook
 - [ ] Math
 - [ ] Hashes
+- [x] Audio core 
 - [ ] And others
