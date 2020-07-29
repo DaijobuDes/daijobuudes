@@ -5,10 +5,8 @@ import os
 
 from discord.ext import commands
 from discord.utils import get
-from threading import Thread
 
 queues = {}
-threads = []
 
 
 class Audio(commands.Cog):
@@ -114,16 +112,6 @@ class Audio(commands.Cog):
         voice = get(self.client.voice_clients, guild=ctx.guild)
         # channel = ctx.message.author.voice.channel
 
-        # ydl_opts = {
-        #     'format': 'bestaudio/best',
-        #     # 'quiet': True,
-        #     'postprocessors': [{
-        #         'key': 'FFmpegExtractAudio',
-        #         'preferredcodec': 'opus',
-        #         # 'prefferedquality': '192'
-        #     }],
-        # }
-
         ydl_opts = {
             'format': 'bestaudio/best',
             # 'quiet': True,
@@ -138,9 +126,7 @@ class Audio(commands.Cog):
 
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             print('Downloading audio...\n')
-            process = Thread(target=ydl.download([url]))
-            process.start()
-            threads.append(process)
+            ydl.download([url])
 
         for file in os.listdir('./'):
             if file.endswith(".opus"):
@@ -258,10 +244,7 @@ class Audio(commands.Cog):
 
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             print('Downloading audio...\n')
-            # ydl.download([url])
-            process = Thread(target=ydl.download([url]))
-            process.start()
-            threads.append(process)
+            ydl.download([url])
 
         await ctx.send('Adding song ' + str(q_num) + ' to queue.')
         print('Adding song ' + str(q_num) + ' to queue.')
