@@ -24,4 +24,5 @@ This is to separate the bot token for privacy purposes.
 - [ ] Math
 - [ ] Hashes
 - [x] Audio core 
+- [ ] Embeds (not yet fully implemented)
 - [ ] And others
