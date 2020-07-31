@@ -54,17 +54,24 @@ async def is_owner(ctx):
 @client.command()
 @commands.check(is_owner)
 async def load(ctx, extension):
-    client.load_extension(f'plugins.{extension}')
-    print(f'{extension} loaded')
+    try:
+        client.load_extension(f'plugins.{extension}')
+        print(f'{extension} loaded')
+    except ModuleNotFoundError:
+        await ctx.send(f'No module named {extension}')
+    except ImportError:
+        await ctx.send(f'There was an error loading this {extension}')
 
 
 # Unload plugins
 @client.command()
 @commands.check(is_owner)
 async def unload(ctx, extension):
-    client.unload_extension(f'plugins.{extension}')
-    print(f'{extension} unloaded')
-
+    try:
+        client.unload_extension(f'plugins.{extension}')
+        print(f'{extension} unloaded')
+    except ModuleNotFoundError:
+        await ctx.send(f'Module not loaded {extension}')
 
 # Reload plugins
 # Useful for realtime plugin testing
@@ -76,23 +83,23 @@ async def reload(ctx, extension):
     print(f'{extension} reloaded')
 
 
-@client.command(aliases=['al'])
+@client.command(aliases=['al', 'dr'])
 @commands.check(is_owner)
-async def audioload(ctx, extension):
+async def dirload(ctx, extension):
     client.load_extension(f'{extension}')
     print(f'{extension} loaded')
 
 
-@client.command(aliases=['au'])
+@client.command(aliases=['au', 'dru'])
 @commands.check(is_owner)
-async def audiounload(ctx, extension):
+async def dirunload(ctx, extension):
     client.unload_extension(f'{extension}')
     print(f'{extension} loaded')
 
 
-@client.command(aliases=['alr'])
+@client.command(aliases=['alr', 'drel'])
 @commands.check(is_owner)
-async def audioreload(ctx, extension):
+async def dirreload(ctx, extension):
     client.unload_extension(f'{extension}')
     client.load_extension(f'{extension}')
     print(f'{extension} reloaded')
