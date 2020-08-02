@@ -32,8 +32,14 @@ from discord.ext import commands
 # LOG START
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+handler = logging.FileHandler(
+    filename='discord.log', encoding='utf-8', mode='w'
+)
+handler.setFormatter(
+    logging.Formatter(
+        '%(asctime)s:%(levelname)s:%(name)s: %(message)s'
+    )
+)
 logger.addHandler(handler)
 # LOG END
 
@@ -72,6 +78,7 @@ async def unload(ctx, extension):
         print(f'{extension} unloaded')
     except ModuleNotFoundError:
         await ctx.send(f'Module not loaded {extension}')
+
 
 # Reload plugins
 # Useful for realtime plugin testing
