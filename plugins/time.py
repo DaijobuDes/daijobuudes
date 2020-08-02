@@ -1,4 +1,5 @@
 import time
+import discord
 
 from discord.ext import commands
 from ddate.base import DDate
@@ -12,15 +13,36 @@ class Time(commands.Cog):
     @commands.command()
     async def time(self, ctx):
         localtime = time.asctime(time.localtime(time.time()))
-        await ctx.send(f'Local bot time : `{localtime} GMT+8`')
+        embed = discord.Embed(title="Time Module")
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+            )
+        embed.add_field(
+            name="Bot Local Time",
+            value=f'Local time: `{localtime}` GMT+8'
+        )
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def ddate(self, ctx):
-        await ctx.send(DDate())
+        embed = discord.Embed(title="Time Module")
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
+        embed.add_field(name="DDate", value=DDate())
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def at(self, ctx):
-        await ctx.send(round(time.time()))
+        embed = discord.Embed(title="Time Module")
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
+        embed.add_field(name="At", value=round(time.time()))
+        await ctx.send(embed=embed)
 
 
 def setup(client):
