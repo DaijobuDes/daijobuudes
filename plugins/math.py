@@ -1,7 +1,10 @@
 import random
+import discord
+import d20
 
 from discord.ext import commands
-from math import ldexp, degrees, sqrt, sin, cos, tan, sinh, cosh, tanh
+from math import degrees, sqrt, sin, cos, tan, sinh, cosh, tanh
+from math import pow as exp
 
 
 class Math(commands.Cog):
@@ -16,32 +19,61 @@ class Math(commands.Cog):
         await ctx.send(random.randint(0, base))
 
     @commands.command()
-    async def dice(self, ctx, times=1, sides=6):
+    async def dice(self, ctx, times=6, sides=6):
+        """Rolls 6 times and 6 sides by default."""
+
+        embed = discord.Embed(title="Math Module", color=0xe700ff)
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
         if times == 0 and sides == 0:
-            await ctx.send('You can\'t roll 0')
+            embed.add_field(name="Error",
+                            value="You can't roll 0.")
         elif times < 0 and sides < 0:
-            times = -times
-            sides = -sides
-            await ctx.send()
+            embed.add_field(name="Error",
+                            value="You can't roll negative values.")
+        elif sides > 1000:
+            embed.add_field(name="Error",
+                            value="Dice can't have more than 1000 sides.")
+        elif times > 100:
+            embed.add_field(name="Error",
+                            value="Dice can't roll more than 1000 sides.")
         else:
-            await ctx.send()
+            results = d20.roll(f"{times}d{sides}")
+            embed.add_field(name="Results",
+                            value=results
+                            )
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def pow(self, ctx, base: int, exponent: int):
-        # Not using math.pow() since it is vulnerable to not
-        # responding on calculating large values
-
+        embed = discord.Embed(title="Math Module")
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
         try:
-            answer = ldexp(base, exponent)
+            answer = exp(base, exponent)
         except OverflowError:
-            await ctx.send('Nuh uh, nice try. Math range error')
+            embed.add_field(name="Error",
+                            value="Nuh uh, nice try. Math range error")
+            await ctx.send(embed=embed)
         except ValueError:
-            await ctx.send('Nice try placing invalid characters')
+            embed.add_field(name="Error",
+                            value="Nice try placing invalid characters")
+            await ctx.send(embed=embed)
         finally:
-            await ctx.send(answer)
+            embed.add_field(name=f"Answer to {base}^{exponent}", value=answer)
+            await ctx.send(embed=embed)
 
     @commands.command()
     async def trig(self, ctx, choice: str, x: float):
+        embed = discord.Embed(title="Math Module")
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
         if choice == 'sin':
             answer = (sin(x))
         elif choice == 'cos':
@@ -57,14 +89,51 @@ class Math(commands.Cog):
         else:
             answer = 0
         deg = degrees(answer)
-        await ctx.send(f'''
-        ```
-D: {deg}
-R: {answer}```''')
+        embed.add_field(name="Answer",
+                        value=f"Degrees: {deg}\nRadians: {answer}"
+                        )
+        await ctx.send(embed=embed)
 
     @commands.command()
-    async def sqrt(self, ctx, number):
-        await ctx.send(sqrt(number))
+    async def sqrt(self, ctx, number: float):
+        embed = discord.Embed(title="Math Module")
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
+        embed.add_field(name="Answer",
+                        value=sqrt(number)
+                        )
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def itersqrt(self, ctx, number: float):
+        embed = discord.Embed(title="Math Module")
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
+        for i in range(1, 11):
+            embed.add_field(name=f'Iteration {i}', value=sqrt(number))
+            number = sqrt(number)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def iterpow(self, ctx, base: int):
+        embed = discord.Embed(title="Math Module")
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
+        for i in range(1, 11):
+            try:
+                embed.add_field(name=f'Iteration {i}', value=exp(base, i))
+            except OverflowError:
+                embed.add_field(
+                    name=f'Iteration {i}',
+                    value="Nuh uh, nice try. Math range error"
+                )
+        await ctx.send(embed=embed)
 
 
 def setup(client):
