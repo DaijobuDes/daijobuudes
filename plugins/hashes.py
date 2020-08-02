@@ -11,68 +11,63 @@ class Hashes(commands.Cog):
         self.client = client
 
     @commands.command()
-    async def md5(self, ctx, *, args: str):
+    async def hashes(self, ctx, method: str, *, args: str):
+        method.lower()
         embed = discord.Embed(title="Hashes Module")
-        embed.set_footer(text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-                         icon_url=ctx.author.avatar_url)
-        embed.add_field(name=f"MD5 of '{args}'",
-                        value=hashlib.md5(args.encode('UTF-8')).hexdigest())
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
+        if method == 'md5':
+            embed.add_field(
+                name=f"MD5 of '{args}'",
+                value=hashlib.md5(args.encode('UTF-8')).hexdigest()
+                )
+        elif method == 'sha512':
+            embed.add_field(
+                name=f"SHA512 of '{args}'",
+                value=hashlib.sha512(args.encode('UTF-8')).hexdigest()
+                )
+        elif method == 'sha384':
+            embed.add_field(
+                name=f"SHA384 of '{args}'",
+                value=hashlib.sha384(args.encode('UTF-8')).hexdigest()
+                )
+        elif method == 'sha256':
+            embed.add_field(
+                name=f"SHA256 of '{args}'",
+                value=hashlib.sha256(args.encode('UTF-8')).hexdigest()
+                )
+        elif method == 'sha224':
+            embed.add_field(
+                name=f"SHA224 of '{args}'",
+                value=hashlib.sha224(args.encode('UTF-8')).hexdigest()
+                )
+        elif method == 'sha1':
+            embed.add_field(
+                name=f"SHA1 of '{args}'",
+                value=hashlib.sha1(args.encode('UTF-8')).hexdigest()
+                )
+        elif method == 'crc32':
+            temp = zlib.crc32(b'{args}')
+            val = hex(temp)
+            embed.add_field(
+                name=f"CRC32 of '{args}'",
+                value=f'{val[2:]}'
+                )
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def sha512(self, ctx, *, args: str):
+    async def algorithms(self, ctx):
         embed = discord.Embed(title="Hashes Module")
-        embed.set_footer(text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-                         icon_url=ctx.author.avatar_url)
-        embed.add_field(name=f"SHA512 of '{args}'",
-                        value=hashlib.sha512(args.encode('UTF-8')).hexdigest())
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    async def sha384(self, ctx, *, args: str):
-        embed = discord.Embed(title="Hashes Module")
-        embed.set_footer(text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-                         icon_url=ctx.author.avatar_url)
-        embed.add_field(name=f"SHA384 of '{args}'",
-                        value=hashlib.sha384(args.encode('UTF-8')).hexdigest())
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    async def sha256(self, ctx, *, args: str):
-        embed = discord.Embed(title="Hashes Module")
-        embed.set_footer(text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-                         icon_url=ctx.author.avatar_url)
-        embed.add_field(name=f"SHA256 of '{args}'",
-                        value=hashlib.sha256(args.encode('UTF-8')).hexdigest())
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    async def sha224(self, ctx, *, args: str):
-        embed = discord.Embed(title="Hashes Module")
-        embed.set_footer(text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-                         icon_url=ctx.author.avatar_url)
-        embed.add_field(name=f"SHA224 of '{args}'",
-                        value=hashlib.sha224(args.encode('UTF-8')).hexdigest())
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    async def sha1(self, ctx, *, args: str):
-        embed = discord.Embed(title="Hashes Module")
-        embed.set_footer(text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-                         icon_url=ctx.author.avatar_url)
-        embed.add_field(name=f"SHA1 of '{args}'",
-                        value=hashlib.sha1(args.encode('UTF-8')).hexdigest())
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    async def crc32(self, ctx, *, args: str):
-        temp = zlib.crc32(b'{args}')
-        val = hex(temp)
-        embed = discord.Embed(title="Hashes Module")
-        embed.set_footer(text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-                         icon_url=ctx.author.avatar_url)
-        embed.add_field(name=f"CRC32 of '{args}'",
-                        value=f'{val[2:]}')
+        embed.set_footer(
+            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+            icon_url=ctx.author.avatar_url
+        )
+        embed.add_field(
+            name="Available algorithms",
+            value="MD5\nSHA512\nSHA384\nSHA256\nSHA224\nSHA1\nCRC32"
+            )
         await ctx.send(embed=embed)
 
 
