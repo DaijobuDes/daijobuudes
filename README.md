@@ -1,6 +1,13 @@
 # daijobuudes
 A simple discord python bot
 
+## Requirements
+Core prerequisties, `discord`, `discord.py` and automatic dependencies.
+For audio core, `PyNaCl`, `youtube-dl` and `ffmpeg` must be installed.
+
+`# apt update && apt install ffmpeg`
+
+`$ python3 -m pip install discord discord.py PyNaCl youtube-dl`
 
 ## Running the bot
 Simply open a terminal in linux or command prompt in Windows then type `python3 main.py`.
