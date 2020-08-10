@@ -5,19 +5,24 @@ import discord
 from discord.ext import commands
 
 
+def emb(ctx):
+    global embed
+    embed = discord.Embed(title="Hashes Module", color=0x2463e0)
+    embed.set_footer(
+        text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+        icon_url=ctx.author.avatar_url
+    )
+
+
 class Hashes(commands.Cog):
 
     def __init__(self, client):
         self.client = client
 
     @commands.command()
-    async def hashes(self, ctx, method: str, *, args: str):
+    async def hash(self, ctx, method: str, *, args: str):
         method.lower()
-        embed = discord.Embed(title="Hashes Module")
-        embed.set_footer(
-            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-            icon_url=ctx.author.avatar_url
-        )
+        emb(ctx)
         if method == 'md5':
             embed.add_field(
                 name=f"MD5 of '{args}'",
@@ -59,11 +64,7 @@ class Hashes(commands.Cog):
 
     @commands.command()
     async def algorithms(self, ctx):
-        embed = discord.Embed(title="Hashes Module")
-        embed.set_footer(
-            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-            icon_url=ctx.author.avatar_url
-        )
+        emb(ctx)
         embed.add_field(
             name="Available algorithms",
             value="MD5\nSHA512\nSHA384\nSHA256\nSHA224\nSHA1\nCRC32"
