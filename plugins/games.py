@@ -1,5 +1,16 @@
 import random
+import discord
+
 from discord.ext import commands
+
+
+def emb(ctx):
+    global embed
+    embed = discord.Embed(title="Games Module", color=0xa200ff)
+    embed.set_footer(
+        text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+        icon_url=ctx.author.avatar_url
+    )
 
 
 class Games(commands.Cog):
