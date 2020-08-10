@@ -9,9 +9,11 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        username = self.client.user.name
+        discriminator = self.client.user.discriminator
         print("Bot online.")
         print("---------------------------------------------")
-        print("Bot Name: "+self.client.user.name+"#"+self.client.user.discriminator)
+        print("Bot Name: "+username+"#"+discriminator)
         print("Bot ID: " + str(self.client.user.id))
         print("Discord.py Version: " + discord.__version__)
         print("---------------------------------------------")
