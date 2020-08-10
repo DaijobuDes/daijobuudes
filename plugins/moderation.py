@@ -39,7 +39,9 @@ class Moderation(commands.Cog):
         for ban_entry in self.banned_users:
             user = ban_entry.user
 
-        if (user.name, user.discriminator) == (self.member_name, self.member_discriminator):
+        membername = self.member_name
+        memberdisc = self.member_discriminator
+        if (user.name, user.discriminator) == (membername, memberdisc):
             await ctx.guild.unban(user)
             await ctx.send(f'Unbanned user {user.name}#{user.discriminator}')
             print(f'Unbanned user {user.name}#{user.discriminator}')
