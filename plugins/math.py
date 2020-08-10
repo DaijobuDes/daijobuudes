@@ -7,6 +7,15 @@ from math import degrees, sqrt, sin, cos, tan, sinh, cosh, tanh
 from math import pow as exp
 
 
+def emb(ctx):
+    global embed
+    embed = discord.Embed(title="Math Module", color=0xe700ff)
+    embed.set_footer(
+        text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+        icon_url=ctx.author.avatar_url
+    )
+
+
 class Math(commands.Cog):
 
     def __init__(self, client):
@@ -22,11 +31,7 @@ class Math(commands.Cog):
     async def dice(self, ctx, times=6, sides=6):
         """Rolls 6 times and 6 sides by default."""
 
-        embed = discord.Embed(title="Math Module", color=0xe700ff)
-        embed.set_footer(
-            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-            icon_url=ctx.author.avatar_url
-        )
+        emb(ctx)
         if times == 0 and sides == 0:
             embed.add_field(name="Error",
                             value="You can't roll 0.")
@@ -38,7 +43,7 @@ class Math(commands.Cog):
                             value="Dice can't have more than 1000 sides.")
         elif times > 100:
             embed.add_field(name="Error",
-                            value="Dice can't roll more than 1000 sides.")
+                            value="Dice can't roll more than 100 sides.")
         else:
             results = d20.roll(f"{times}d{sides}")
             embed.add_field(name="Results",
@@ -48,11 +53,8 @@ class Math(commands.Cog):
 
     @commands.command()
     async def pow(self, ctx, base: int, exponent: int):
-        embed = discord.Embed(title="Math Module")
-        embed.set_footer(
-            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-            icon_url=ctx.author.avatar_url
-        )
+
+        emb(ctx)
         try:
             answer = exp(base, exponent)
         except OverflowError:
@@ -69,11 +71,8 @@ class Math(commands.Cog):
 
     @commands.command()
     async def trig(self, ctx, choice: str, x: float):
-        embed = discord.Embed(title="Math Module")
-        embed.set_footer(
-            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-            icon_url=ctx.author.avatar_url
-        )
+
+        emb(ctx)
         if choice == 'sin':
             answer = (sin(x))
         elif choice == 'cos':
@@ -96,11 +95,8 @@ class Math(commands.Cog):
 
     @commands.command()
     async def sqrt(self, ctx, number: float):
-        embed = discord.Embed(title="Math Module")
-        embed.set_footer(
-            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-            icon_url=ctx.author.avatar_url
-        )
+
+        emb(ctx)
         embed.add_field(name="Answer",
                         value=sqrt(number)
                         )
@@ -108,11 +104,8 @@ class Math(commands.Cog):
 
     @commands.command()
     async def itersqrt(self, ctx, number: float):
-        embed = discord.Embed(title="Math Module")
-        embed.set_footer(
-            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-            icon_url=ctx.author.avatar_url
-        )
+
+        emb(ctx)
         for i in range(1, 11):
             embed.add_field(name=f'Iteration {i}', value=sqrt(number))
             number = sqrt(number)
@@ -120,11 +113,8 @@ class Math(commands.Cog):
 
     @commands.command()
     async def iterpow(self, ctx, base: int):
-        embed = discord.Embed(title="Math Module")
-        embed.set_footer(
-            text=f"Requested by {ctx.author} on {ctx.message.created_at}",
-            icon_url=ctx.author.avatar_url
-        )
+
+        emb(ctx)
         for i in range(1, 11):
             try:
                 embed.add_field(name=f'Iteration {i}', value=exp(base, i))
