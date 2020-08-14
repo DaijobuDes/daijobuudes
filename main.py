@@ -49,12 +49,7 @@ start_time = time.time()
 with open("token.txt", "r") as file:
     token = file.read()
 
-client = commands.Bot(command_prefix=".")
-
-
-# Change ctx.author.id to your own discord ID if you plan to self host
-async def is_owner(ctx):
-    return ctx.author.id == 451974524053749780  # DaijobuDes#0870
+client = commands.Bot(command_prefix=".", owner_id=451974524053749780) # DaijobuDes#0870
 
 
 @client.command()
