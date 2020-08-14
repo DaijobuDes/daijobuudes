@@ -49,11 +49,12 @@ start_time = time.time()
 with open("token.txt", "r") as file:
     token = file.read()
 
-client = commands.Bot(command_prefix=".", owner_id=451974524053749780) # DaijobuDes#0870
-
+# Change owner_id to your own discord ID if you plan to self host
+client = commands.Bot(command_prefix=".", owner_id=451974524053749780)
+# DaijobuDes#0870
 
 @client.command()
-@commands.check(is_owner)
+@commands.is_owner()
 async def load(ctx, extension):
     try:
         client.load_extension(f'plugins.{extension}')
@@ -66,7 +67,7 @@ async def load(ctx, extension):
 
 # Unload plugins
 @client.command()
-@commands.check(is_owner)
+@commands.is_owner()
 async def unload(ctx, extension):
     try:
         client.unload_extension(f'plugins.{extension}')
@@ -78,7 +79,7 @@ async def unload(ctx, extension):
 # Reload plugins
 # Useful for realtime plugin testing
 @client.command()
-@commands.check(is_owner)
+@commands.is_owner()
 async def reload(ctx, extension):
     client.unload_extension(f'plugins.{extension}')
     client.load_extension(f'plugins.{extension}')
@@ -86,21 +87,21 @@ async def reload(ctx, extension):
 
 
 @client.command(aliases=['al', 'dr'])
-@commands.check(is_owner)
+@commands.is_owner()
 async def dirload(ctx, extension):
     client.load_extension(f'{extension}')
     print(f'{extension} loaded')
 
 
 @client.command(aliases=['au', 'dru'])
-@commands.check(is_owner)
+@commands.is_owner()
 async def dirunload(ctx, extension):
     client.unload_extension(f'{extension}')
     print(f'{extension} loaded')
 
 
 @client.command(aliases=['alr', 'drel'])
-@commands.check(is_owner)
+@commands.is_owner()
 async def dirreload(ctx, extension):
     client.unload_extension(f'{extension}')
     client.load_extension(f'{extension}')
