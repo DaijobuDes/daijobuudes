@@ -24,7 +24,7 @@ Make sure you added `youtube-dl` to `%PATH%` or either move it to C:\Windows\Sys
 
 To install python packages
 
-`C:\Users\user> pip install requirements.txt`
+`C:\Users\user> pip3 install -r requirements.txt`
 
 ## Running the bot
 Simply open a terminal in linux or command prompt in Windows then type `python3 main.py`.
