@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2020 Kate Aubrey Cellan
+# Copyright (c) 2020 Kate Aubrey Cellan (Maine Ichinose)
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,7 @@ with open("token.txt", "r") as file:
 # Change owner_id to your own discord ID if you plan to self host
 client = commands.Bot(command_prefix=".", owner_id=451974524053749780)
 # DaijobuDes#0870
+
 
 @client.command()
 @commands.is_owner()
