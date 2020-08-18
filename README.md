@@ -14,7 +14,7 @@ For audio core, `PyNaCl`, `youtube-dl` and `ffmpeg` must be installed.
 
 `# apt update && apt install ffmpeg`
 
-`$ python3 -m pip install requirements.txt`
+`$ python3 -m pip install -r requirements.txt`
 
 ### For windows systems
 
