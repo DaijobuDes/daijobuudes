@@ -1,7 +1,9 @@
 import discord
 import psutil
+from os import uname
 
 from discord.ext import commands
+from datetime import datetime
 
 
 def emb(ctx):
@@ -13,6 +15,16 @@ def emb(ctx):
     )
 
 
+# Code from https://www.scivision.dev/python-detect-wsl/
+def in_wsl() -> bool:
+    """
+    WSL is thought to be the only common Linux kernel
+    with Microsoft in the name.
+    """
+
+    return 'Microsoft' in uname().release
+
+
 class Misc(commands.Cog):
 
     def __init__(self, client):
@@ -20,10 +32,11 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-        print(f'Pinging at `{round(self.client.latency * 1000)} ms`')
+        consoletime = datetime.now()
+        print(f'{consoletime} [NOTE/LOW] Latency: {round(self.client.latency * 1000)} ms')
         message = await ctx.send('Pinging...')
         await message.edit(
-            content=f'Pong... `{round(self.client.latency*1000)}` ms'
+            content=f'Pong... `{round(self.client.latency*1000)} ms`'
         )
 
     @commands.command()
@@ -42,20 +55,26 @@ class Misc(commands.Cog):
         pmem = round((usedmem/tmem)*100)
 
         # Swap Usage
-        dict(psutil.swap_memory()._asdict())
-        uswap = psutil.swap_memory().used/1024/1024
-        tswap = psutil.swap_memory().total/1024/1024
-        pswap = round((uswap/tswap)*100)
+        try:
+            dict(psutil.swap_memory()._asdict())
+            uswap = psutil.swap_memory().used/1024/1024
+            tswap = psutil.swap_memory().total/1024/1024
+            pswap = round((uswap/tswap)*100)
+        except ZeroDivisionError:
+            pass
 
         # Detect operating system
-        if psutil.LINUX:
-            oper = 'Linux'
-        elif psutil.MACOS:
-            oper = 'Mac OS'
-        elif psutil.WINDOWS:
-            oper = "Windows"
+        if in_wsl():
+            oper = 'WSL'
         else:
-            oper = 'unknown'
+            if psutil.LINUX:
+                oper = 'Linux'
+            elif psutil.MACOS:
+                oper = 'Mac OS'
+            elif psutil.WINDOWS:
+                oper = "Windows"
+            else:
+                oper = 'unknown'
 
         embed.add_field(
             name="CPU Usage",
