@@ -33,10 +33,11 @@ class Misc(commands.Cog):
     @commands.command()
     async def ping(self, ctx):
         consoletime = datetime.now()
-        print(f'{consoletime} [NOTE/LOW] Latency: {round(self.client.latency * 1000)} ms')
+        lag = round(self.client.latency*1000)
+        print(f'{consoletime} [NOTE/LOW] Latency: {lag} ms')
         message = await ctx.send('Pinging...')
         await message.edit(
-            content=f'Pong... `{round(self.client.latency*1000)} ms`'
+            content=f'Pong... `{lag} ms`'
         )
 
     @commands.command()
