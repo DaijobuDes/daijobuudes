@@ -1,5 +1,7 @@
-# daijobuudes
+# daijobuudes 
 A simple discord python bot
+
+[![CodeFactor](https://www.codefactor.io/repository/github/daijobudes/daijobuudes/badge)](https://www.codefactor.io/repository/github/daijobudes/daijobuudes)
 
 ## Requirements
 Open a terminal (linux) or command prompt (windows)
