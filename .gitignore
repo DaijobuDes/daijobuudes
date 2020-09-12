@@ -2,11 +2,15 @@
 *.pyc
 __pycache__
 
-# Discord token file
+# Token file
 token.txt
+osuapikey.txt
 
 # Temporary files
 temp
+
+# Database files
+osudb.json
 
 # Discord logs
 discord.log
