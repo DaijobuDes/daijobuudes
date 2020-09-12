@@ -53,7 +53,7 @@ class Audio(commands.Cog):
 
                 try:
                     first_file = os.listdir(DIR)[0]
-                except:
+                except FileNotFoundError:
                     print('No more songs in queue.')
                     queues.clear()
                     return
@@ -106,7 +106,7 @@ class Audio(commands.Cog):
             if Queue_infile is True:
                 print('Removed old folder.')
                 shutil.rmtree(Queue_folder)
-        except:
+        except FileNotFoundError:
             print('No old Queue folder')
 
         voice = get(self.client.voice_clients, guild=ctx.guild)
