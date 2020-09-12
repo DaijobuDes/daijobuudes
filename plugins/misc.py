@@ -1,7 +1,9 @@
 import discord
 import psutil
-from os import uname
+import sys
+import requests
 
+from os import uname
 from discord.ext import commands
 from datetime import datetime
 
@@ -96,6 +98,65 @@ class Misc(commands.Cog):
         embed.add_field(
             name="OS",
             value=oper
+        )
+
+        await ctx.send(embed=embed)
+
+    @commands.command(aliases=['about', 'ver'])
+    async def version(self, ctx):
+        version = 'v0.2-STABLE'
+        dpy = discord.__version__
+        pyver = sys.version_info
+        pyver = list(pyver)
+
+        # Detect operating system
+        if in_wsl():
+            oper = 'WSL'
+        else:
+            if psutil.LINUX:
+                oper = 'Linux'
+            elif psutil.MACOS:
+                oper = 'Mac OS'
+            elif psutil.WINDOWS:
+                oper = "Windows"
+            else:
+                oper = 'unknown'
+
+        embed = discord.Embed(
+            title="Bot Version",
+            color=0x4f1758,
+            url="https://github.com/DaijobuDes/daijobuudes"
+        )
+        embed.add_field(
+            name="Python",
+            value=f'{pyver[0]}.{pyver[1]}.{pyver[2]}'
+        )
+        embed.add_field(
+            name="Version",
+            value=version
+        )
+        embed.add_field(
+            name="Discord.py",
+            value=dpy
+        )
+        embed.add_field(
+            name="osu!api",
+            value='1'
+        )
+        embed.add_field(
+            name="OS",
+            value=oper
+        )
+        embed.add_field(
+            name="Web (Requests)",
+            value=requests.__version__
+        )
+        embed.add_field(
+            name="About DaijobuuDes",
+            value="Created 14th July, 2020\n"
+            "Primarily made for server moderation\n"
+            "with audio support.\n"
+            "Source: https://github.com/DaijobuDes/daijobuudes"
         )
 
         await ctx.send(embed=embed)
