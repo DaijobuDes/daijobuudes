@@ -2,8 +2,8 @@ import discord
 import psutil
 import sys
 import requests
+import os
 
-from os import uname
 from discord.ext import commands
 from datetime import datetime
 
@@ -24,7 +24,7 @@ def in_wsl() -> bool:
     with Microsoft in the name.
     """
 
-    return 'Microsoft' in uname().release
+    return 'Microsoft' in os.uname().release
 
 
 class Misc(commands.Cog):
