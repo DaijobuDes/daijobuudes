@@ -1,5 +1,10 @@
 # daijobuudes 
-A simple discord python bot
+A simple discord python bot.
+
+Default prefix is `.`.
+
+[Invite Link to add the bot](https://discord.com/api/oauth2/authorize?client_id=732431209312944190&permissions=37088320&redirect_uri=http%3A%2F%2Flocalhost&scope=bot)
+
 
 [![CodeFactor](https://www.codefactor.io/repository/github/daijobudes/daijobuudes/badge)](https://www.codefactor.io/repository/github/daijobudes/daijobuudes)
 
@@ -43,12 +48,17 @@ This is to separate the bot token for privacy purposes.
 ### TO-DO
 - [ ] Complete rewrite of my IRC bot used in messenger to discord bot (probably)
 - [ ] Code cleanup
-- [ ] Moderation tools
+- [ ] Moderation tools (partial)
 - [ ] Games
 - [ ] Bot Status
 - [ ] IRC relay to Discord either through webhook
 - [ ] Math
 - [ ] Hashes
 - [x] Audio core 
-- [ ] Embeds (not yet fully implemented)
+- [ ] Embeds (partially implemented)
 - [ ] And others
+- [ ] osu! (Bancho) stats (partial)
+- [ ] osu! (Gatari)
+- [ ] osu! (Ripple)
+- [ ] osu! (Akatsuki)
+
