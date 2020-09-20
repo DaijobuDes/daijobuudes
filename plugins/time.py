@@ -9,7 +9,7 @@ def emb(ctx):
     global embed
     embed = discord.Embed(title="Time Module", color=0x5eff00)
     embed.set_footer(
-        text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+        text=f"Requested by {ctx.author} on {ctx.message.created_at[:-7]}",
         icon_url=ctx.author.avatar_url
     )
 

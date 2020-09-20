@@ -8,7 +8,7 @@ def emb(ctx):
     global embed
     embed = discord.Embed(title="Games Module", color=0xa200ff)
     embed.set_footer(
-        text=f"Requested by {ctx.author} on {ctx.message.created_at}",
+        text=f"Requested by {ctx.author} on {ctx.message.created_at[:-7]}",
         icon_url=ctx.author.avatar_url
     )
 
