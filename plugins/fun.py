@@ -2,13 +2,14 @@ import random
 import discord
 
 from discord.ext import commands
+from .color import *
 
 
 def emb(ctx):
     global embed
     embed = discord.Embed(title="Games Module", color=0xa200ff)
     embed.set_footer(
-        text=f"Requested by {ctx.author} on {ctx.message.created_at[:-7]}",
+        text=f"Requested by {ctx.author} on {ctx.message.created_at}",
         icon_url=ctx.author.avatar_url
     )
 
@@ -63,11 +64,12 @@ class Games(commands.Cog):
             'Just ask others.',
             'Hmmmmmmmmm.....']
         await ctx.send(f'{random.choice(responses)}')
-        print(f'Eightball triggered. Question: `{question}`')
+        print(f'{infolow}Eightball triggered. Question: `{question}`')
 
     @commands.command()
     async def getemote(self, ctx, id: int):
         await ctx.send(self.client.get_emoji(id))
+        print(f'{infolow}Emote ID: {id}')
 
 
 def setup(client):
