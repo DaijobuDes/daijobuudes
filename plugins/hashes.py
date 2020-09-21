@@ -3,13 +3,14 @@ import zlib
 import discord
 
 from discord.ext import commands
+from .color import *
 
 
 def emb(ctx):
     global embed
     embed = discord.Embed(title="Hashes Module", color=0x2463e0)
     embed.set_footer(
-        text=f"Requested by {ctx.author} on {ctx.message.created_at[:-7]}",
+        text=f"Requested by {ctx.author} on {ctx.message.created_at}",
         icon_url=ctx.author.avatar_url
     )
 
@@ -60,6 +61,7 @@ class Hashes(commands.Cog):
                 name=f"CRC32 of '{args}'",
                 value=f'{val[2:]}'
                 )
+        print(f'{infolow}{method} of \'{args}\'')
         await ctx.send(embed=embed)
 
     @commands.command()

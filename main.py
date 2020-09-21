@@ -25,8 +25,19 @@ import os
 import time
 import datetime
 import logging
+import discord
+import psutil
 
 from discord.ext import commands
+from plugins.color import *
+
+
+if psutil.WINDOWS:
+    os.system('cls')
+elif psutil.LINUX:
+    os.system('clear')
+else:
+    pass
 
 
 # LOG START
@@ -50,7 +61,7 @@ with open("token.txt", "r") as file:
     token = file.read()
 
 # Change owner_id to your own discord ID if you plan to self host
-client = commands.Bot(command_prefix=".", owner_id=451974524053749780)
+client = commands.Bot(command_prefix=">>", owner_id=451974524053749780)
 # DaijobuDes#0870
 
 
@@ -59,11 +70,13 @@ client = commands.Bot(command_prefix=".", owner_id=451974524053749780)
 async def load(ctx, extension):
     try:
         client.load_extension(f'plugins.{extension}')
-        print(f'{extension} loaded')
+        print(f'{debuginfo}{extension} loaded')
     except ModuleNotFoundError:
         await ctx.send(f'No module named {extension}')
     except ImportError:
-        await ctx.send(f'There was an error loading this {extension}')
+        await ctx.send(f' {extension}')
+        print(f'{errorsevere}There was an error loading this {extension}'
+        )
 
 
 # Unload plugins
@@ -72,9 +85,11 @@ async def load(ctx, extension):
 async def unload(ctx, extension):
     try:
         client.unload_extension(f'plugins.{extension}')
-        print(f'{extension} unloaded')
-    except ModuleNotFoundError:
+        print(f'{debuginfo}{extension} unloaded'
+        )
+    except Exception:
         await ctx.send(f'Module not loaded {extension}')
+        print(f'{warnlow}{extension} not loaded')
 
 
 # Reload plugins
@@ -84,34 +99,62 @@ async def unload(ctx, extension):
 async def reload(ctx, extension):
     client.unload_extension(f'plugins.{extension}')
     client.load_extension(f'plugins.{extension}')
-    print(f'{extension} reloaded')
+    print(f'{debuginfo}{extension} reloaded')
 
 
 @client.command(aliases=['al', 'dr'])
 @commands.is_owner()
 async def dirload(ctx, extension):
     client.load_extension(f'{extension}')
-    print(f'{extension} loaded')
+    print(f'{debuginfo}{extension} loaded')
 
 
 @client.command(aliases=['au', 'dru'])
 @commands.is_owner()
 async def dirunload(ctx, extension):
     client.unload_extension(f'{extension}')
-    print(f'{extension} loaded')
+    print(
+        f'{datetime.datetime.now()}'
+        u'\u001b[36;1m [DEBUG/INFO] \u001b[0m'
+        f'{extension} unloaded'
+    )
 
 
-@client.command(aliases=['alr', 'drel'])
+@client.command(aliases=['drr', 'drel'])
 @commands.is_owner()
 async def dirreload(ctx, extension):
     client.unload_extension(f'{extension}')
     client.load_extension(f'{extension}')
-    print(f'{extension} reloaded')
+    print(
+        f'{datetime.datetime.now()}'
+        u'\u001b[36;1m [DEBUG/INFO] \u001b[0m'
+        f'{filename[:-3]} loaded'
+    )
+
+
+@client.command(aliases=['rall'])
+@commands.is_owner()
+async def reloadall(ctx):
+    for filename in os.listdir('./plugins'):
+        if filename.endswith('.py'):
+            if filename[:-3] == 'color':
+                pass
+            else:
+                client.unload_extension(f'plugins.{filename[:-3]}')
+                print(f'{debuginfo}Unloaded {filename[:-3]}')
+                client.load_extension(f'plugins.{filename[:-3]}')
+                print(f'{debuginfo}Loaded {filename[:-3]}')
+    print(f'{debuginfo}All plugins reloaded.')
+    await ctx.send('All plugins reloaded.')
+
 
 for filename in os.listdir('./plugins'):
     if filename.endswith('.py'):
-        client.load_extension(f'plugins.{filename[:-3]}')
-        print(f'{filename} loaded')
+        if filename[:-3] == 'color':
+            pass
+        else:
+            client.load_extension(f'plugins.{filename[:-3]}')
+            print(f'{debuginfo}{filename[:-3]} loaded')
 
 
 @client.command()
@@ -119,7 +162,9 @@ async def uptime(ctx):
     current_time = time.time()
     difference = int(round(current_time-start_time))
     text_time = str(datetime.timedelta(seconds=difference))
-    await ctx.send(f'`Uptime: {text_time}`')
-    print(f'Current bot uptime: {text_time}')
+    print(f'{infolow}Uptime: {text_time}')
+    embed = discord.Embed(title=None, color=0x519ba4)
+    embed.add_field(name="Uptime", value=text_time)
+    await ctx.send(embed=embed)
 
 client.run(token)

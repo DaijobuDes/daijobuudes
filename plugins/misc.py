@@ -6,13 +6,14 @@ import os
 
 from discord.ext import commands
 from datetime import datetime
+from .color import *
 
 
 def emb(ctx):
     global embed
     embed = discord.Embed(title="Misc Module", color=0xffe100)
     embed.set_footer(
-        text=f"Requested by {ctx.author} on {ctx.message.created_at[:-7]}",
+        text=f"Requested by {ctx.author} on {ctx.message.created_at}",
         icon_url=ctx.author.avatar_url
     )
 
@@ -36,7 +37,7 @@ class Misc(commands.Cog):
     async def ping(self, ctx):
         consoletime = datetime.now()
         lag = round(self.client.latency*1000)
-        print(f'{consoletime} [NOTE/LOW] Latency: {lag} ms')
+        print(f'{debuginfo}Latency: {lag} ms')
         message = await ctx.send('Pinging...')
         await message.edit(
             content=f'Pong... `{lag} ms`'
@@ -156,7 +157,7 @@ class Misc(commands.Cog):
             value="Created 14th July, 2020\n"
             "Primarily made for server moderation\n"
             "with audio support.\n"
-            "Source: https://github.com/DaijobuDes/daijobuudes"
+            "Source: [GitHub](https://github.com/DaijobuDes/daijobuudes)"
         )
 
         await ctx.send(embed=embed)

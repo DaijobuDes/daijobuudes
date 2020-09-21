@@ -11,7 +11,7 @@ def emb(ctx):
     global embed
     embed = discord.Embed(title="Math Module", color=0xe700ff)
     embed.set_footer(
-        text=f"Requested by {ctx.author} on {ctx.message.created_at[:-7]}",
+        text=f"Requested by {ctx.author} on {ctx.message.created_at}",
         icon_url=ctx.author.avatar_url
     )
 
