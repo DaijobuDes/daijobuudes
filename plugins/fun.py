@@ -1,8 +1,10 @@
 import random
 import discord
+import logging
 
 from discord.ext import commands
-from .color import *
+
+log = logging.getLogger('daijobuudes.fun')
 
 
 def emb(ctx):
@@ -63,13 +65,14 @@ class Games(commands.Cog):
             'Can\'t answer that question.',
             'Just ask others.',
             'Hmmmmmmmmm.....']
-        await ctx.send(f'{random.choice(responses)}')
-        print(f'{infolow}Eightball triggered. Question: `{question}`')
+        ans = random.choice(responses)
+        await ctx.send(f'{ans}')
+        log.debug(f'Eightball = Question: "{question}" | {ans}')
 
     @commands.command()
     async def getemote(self, ctx, id: int):
         await ctx.send(self.client.get_emoji(id))
-        print(f'{infolow}Emote ID: {id}')
+        log.info(f'Emote ID: {id}')
 
 
 def setup(client):

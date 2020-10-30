@@ -1,10 +1,13 @@
 import random
 import discord
 import d20
+import logging
 
 from discord.ext import commands
 from math import degrees, sqrt, sin, cos, tan, sinh, cosh, tanh
 from math import pow as exp
+
+log = logging.getLogger('daijobuudes.math')
 
 
 def emb(ctx):

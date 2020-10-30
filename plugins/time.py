@@ -1,8 +1,11 @@
 import time
 import discord
+import logging
 
 from discord.ext import commands
 from ddate.base import DDate
+
+log = logging.getLogger('daijobuudes.time')
 
 
 def emb(ctx):

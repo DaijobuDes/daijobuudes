@@ -1,9 +1,11 @@
 import hashlib
 import zlib
 import discord
+import logging
 
 from discord.ext import commands
-from .color import *
+
+log = logging.getLogger('daijobuudes.hashes')
 
 
 def emb(ctx):
@@ -61,7 +63,7 @@ class Hashes(commands.Cog):
                 name=f"CRC32 of '{args}'",
                 value=f'{val[2:]}'
                 )
-        print(f'{infolow}{method} of \'{args}\'')
+        log.debug(f'{method} of \'{args}\'')
         await ctx.send(embed=embed)
 
     @commands.command()

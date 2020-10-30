@@ -3,10 +3,11 @@ import psutil
 import sys
 import requests
 import os
+import logging
 
 from discord.ext import commands
-from datetime import datetime
-from .color import *
+
+log = logging.getLogger('daijobuudes.misc')
 
 
 def emb(ctx):
@@ -35,9 +36,8 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-        consoletime = datetime.now()
         lag = round(self.client.latency*1000)
-        print(f'{debuginfo}Latency: {lag} ms')
+        log.debug(f'Latency: {lag} ms')
         message = await ctx.send('Pinging...')
         await message.edit(
             content=f'Pong... `{lag} ms`'
@@ -45,6 +45,7 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def echo(self, ctx, *, args):
+        log.debug(f'Echoed: {args}')
         await ctx.send(args)
 
     @commands.command()
@@ -159,8 +160,11 @@ class Misc(commands.Cog):
             "with audio support.\n"
             "Source: [GitHub](https://github.com/DaijobuDes/daijobuudes)"
         )
-
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def invite(self, ctx):
+        await ctx.send('Here is my invite link. Prefix is `.`\n\n\nhttps://discord.com/oauth2/authorize?client_id=732431209312944190&permissions=37088320&scope=bot')
 
 
 def setup(client):
