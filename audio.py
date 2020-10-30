@@ -14,46 +14,6 @@ class Audio(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    async def queue(self, ctx, url: str):
-        Queue_infile = os.path.isdir("./queue")
-
-        if Queue_infile is False:
-            os.mkdir("queue")
-        DIR = os.path.abspath(os.path.realpath("queue"))
-
-        q_num = len(os.listdir(DIR))
-        q_num += 1
-        add_queue = True
-
-        while add_queue:
-            if q_num in queues:
-                q_num += 1
-            else:
-                add_queue = False
-                queues[q_num] = q_num
-
-        queue_path = os.path.abspath(os.path.realpath("queue") + f'/song{q_num}.%(ext)s')
-
-        ydl_opts = {
-            'format': 'bestaudio/best',
-            # 'quiet': True,
-            'noplaylist': True,
-            'outtmpl': queue_path,
-            'maxfilesize': '50M',
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'opus',  # mp3
-                # 'prefferedquality': '192'
-            }],
-        }
-
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            print('Downloading audio...\n')
-            ydl.download([url])
-
-        await ctx.send('Adding song ' + str(q_num) + ' to queue.')
-        print('Adding song ' + str(q_num) + ' to queue.')
-
     @commands.command(pass_context=True, aliases=['j'])
     async def join(self, ctx):
         global voice
@@ -82,11 +42,6 @@ class Audio(commands.Cog):
 
     @commands.command(pass_context=True, aliases=['p'])
     async def play(self, ctx, url: str):
-        voice = get(self.client.voice_clients, guild=ctx.guild)
-
-        if voice and voice.is_playing():
-            await Audio.queue(self, ctx, url)
-            return
 
         def check_queue():
             Queue_infile = os.path.isdir("./queue")
@@ -98,7 +53,7 @@ class Audio(commands.Cog):
 
                 try:
                     first_file = os.listdir(DIR)[0]
-                except FileNotFoundError:
+                except:
                     print('No more songs in queue.')
                     queues.clear()
                     return
@@ -151,7 +106,7 @@ class Audio(commands.Cog):
             if Queue_infile is True:
                 print('Removed old folder.')
                 shutil.rmtree(Queue_folder)
-        except FileNotFoundError:
+        except:
             print('No old Queue folder')
 
         voice = get(self.client.voice_clients, guild=ctx.guild)
@@ -252,6 +207,47 @@ class Audio(commands.Cog):
         else:
             print('Music currently not playing.')
             await ctx.send('Music currently not playing.')
+
+    @commands.command(pass_context=True, aliases=['q'])
+    async def queue(self, ctx, url: str):
+        Queue_infile = os.path.isdir("./queue")
+
+        if Queue_infile is False:
+            os.mkdir("queue")
+        DIR = os.path.abspath(os.path.realpath("queue"))
+
+        q_num = len(os.listdir(DIR))
+        q_num += 1
+        add_queue = True
+
+        while add_queue:
+            if q_num in queues:
+                q_num += 1
+            else:
+                add_queue = False
+                queues[q_num] = q_num
+
+        queue_path = os.path.abspath(os.path.realpath("queue") + f'/song{q_num}.%(ext)s')
+
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            # 'quiet': True,
+            'noplaylist': True,
+            'outtmpl': queue_path,
+            'maxfilesize': '50M',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'opus',  # mp3
+                # 'prefferedquality': '192'
+            }],
+        }
+
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            print('Downloading audio...\n')
+            ydl.download([url])
+
+        await ctx.send('Adding song ' + str(q_num) + ' to queue.')
+        print('Adding song ' + str(q_num) + ' to queue.')
 
 
 def setup(client):
