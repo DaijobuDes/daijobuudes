@@ -2,15 +2,22 @@
 *.pyc
 __pycache__
 
+# Python virtual environment folders
+Include
+Lib
+Scripts
+share
+etc
+
 # Token file
 token.txt
 osuapikey.txt
 
+# Local database files
+osudb.json
+
 # Temporary files
 temp
-
-# Database files
-osudb.json
 
 # Discord logs
 discord.log
