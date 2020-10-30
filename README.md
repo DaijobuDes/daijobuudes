@@ -1,18 +1,14 @@
-# daijobuudes 
-A simple discord python bot.
-
-Default prefix is `.`.
-
-[Invite Link to add the bot](https://discord.com/api/oauth2/authorize?client_id=732431209312944190&permissions=37088320&redirect_uri=http%3A%2F%2Flocalhost&scope=bot)
-
-
-[![CodeFactor](https://www.codefactor.io/repository/github/daijobudes/daijobuudes/badge)](https://www.codefactor.io/repository/github/daijobudes/daijobuudes)
+# daijobuudes
+A simple discord python bot
 
 ## Requirements
 Open a terminal (linux) or command prompt (windows)
 
-Clone this repository first by `git clone https://github.com/DaijobuDes/daijobuudes` and
-then `cd daijobuudes`
+Clone this repository first by `git clone https://github.com/DaijobuDes/daijobuudes`.
+
+Create a virtual environment using `python3 -m venv daijobuudes`.
+
+Then `cd daijobuudes`
 
 Core prerequisties, `discord`, `discord.py` and automatic dependencies.
 For audio core, `PyNaCl`, `youtube-dl` and `ffmpeg` must be installed.
@@ -37,7 +33,6 @@ To install python packages
 Simply open a terminal in linux or command prompt in Windows then type `python3 main.py`.
 Also works in Android phones using Termux with dependencies installed.
 
-
 ## Bot Token
 Simply get it from here https://discord.com/developers/applications/
 
@@ -48,17 +43,13 @@ This is to separate the bot token for privacy purposes.
 ### TO-DO
 - [ ] Complete rewrite of my IRC bot used in messenger to discord bot (probably)
 - [ ] Code cleanup
-- [ ] Moderation tools (partial)
+- [ ] Moderation tools
 - [ ] Games
 - [ ] Bot Status
 - [ ] IRC relay to Discord either through webhook
 - [ ] Math
 - [ ] Hashes
 - [x] Audio core 
-- [ ] Embeds (partially implemented)
+- [ ] Embeds (not yet fully implemented)
 - [ ] And others
-- [ ] osu! (Bancho) stats (partial)
-- [ ] osu! (Gatari)
-- [ ] osu! (Ripple)
-- [ ] osu! (Akatsuki)
-
+- [X] Use virtual environment
